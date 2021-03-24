@@ -1,3 +1,5 @@
+/* This file only handles the DOM interaction (elements of UI) */
+
 document.addEventListener('DOMContentLoaded', function() {
   // nav menu
   const menus = document.querySelectorAll('.side-menu');
