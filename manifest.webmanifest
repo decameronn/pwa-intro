@@ -6,6 +6,13 @@
   "background_color": "#ffe9d2",
   "theme-color": "#ffe1c4",
   "orientation": "portrait-primary",
+  "prefer_related_applications": "true",
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.google.samples.apps.iosched"
+    }
+  ],
   "icons": [
     {
       "src": "/img/icons/icon-72x72.png",
