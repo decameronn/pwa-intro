@@ -34,5 +34,16 @@ self.addEventListener("activate", (evt) => {
 
 /* listen for the fetch event */
 self.addEventListener("fetch", (evt) => {
-  console.log("fetch event", evt);
+
+  /* pause fetch event and respond with our customer event */
+  evt.respondWith(
+    caches.match(evt.request)   /* async */
+      .then(cacheRes => {
+        return cacheRes || fetch(evt.request); 
+        /**
+         * the response we store in the cache for evt.request
+         * if we don't have it or it's empty, just return the fetch request 
+         */ 
+      })
+  )
 });
