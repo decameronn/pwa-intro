@@ -1,4 +1,4 @@
-const PWACache = 'pwa-static-cache';
+const PWACache = 'pwa-static-cache-v2';
 const assets = [
   '/',
   '/index.html',
@@ -22,14 +22,33 @@ self.addEventListener('install', (evt) => {
   evt.waitUntil(
     caches.open(PWACache).then(cache => {
       console.log("assets caching started...");
-       return cache.addAll(assets);
+      return cache.addAll(assets);
     })
   );
 });
 
 /* listen for the activate event (and therefore activate SW) */
 self.addEventListener("activate", (evt) => {
-  console.log("service worker has been activated");
+  // console.log("service worker has been activated");
+  evt.waitUntil(
+    caches.keys().then(keys => {
+      /**
+       * cycle through any cahces we have in the broswer
+       * if the name of the caches don't match the current name of 
+       * our cache, we delete them from the browser, such that
+       * SW knows which version to fetch from cache
+       */
+      /**
+       * this expects only one Promise to return
+       * so when we cycle the array of promises, we wait until they're all
+       * but the correct one done (async)
+       */
+      return Promise.all(keys
+        .filter(key => key !== PWACache)
+        .map(key => caches.delete(key))
+      )
+    })
+  );
 });
 
 /* listen for the fetch event */
@@ -39,11 +58,11 @@ self.addEventListener("fetch", (evt) => {
   evt.respondWith(
     caches.match(evt.request)   /* async */
       .then(cacheRes => {
-        return cacheRes || fetch(evt.request); 
+        return cacheRes || fetch(evt.request);
         /**
          * the response we store in the cache for evt.request
          * if we don't have it or it's empty, just return the fetch request 
-         */ 
+         */
       })
   )
 });
