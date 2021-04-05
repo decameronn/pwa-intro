@@ -44,8 +44,13 @@ self.addEventListener("activate", (evt) => {
        * but the correct one done (async)
        */
       return Promise.all(keys
-        .filter(key => key !== PWACache)
-        .map(key => caches.delete(key))
+        .filter(key => key !== PWACache) 
+        /**
+         * all the keys which aren't PWACache, remain in the array of promises
+         * because they are the keys we want to delete
+         * therefore we have a new array of caches we want to delete
+         */
+        .map(key => caches.delete(key)) /* caches.delete() returns a promise */
       )
     })
   );
@@ -64,5 +69,5 @@ self.addEventListener("fetch", (evt) => {
          * if we don't have it or it's empty, just return the fetch request 
          */
       })
-  )
+  );
 });
