@@ -1,19 +1,19 @@
-const PWACache = 'pwa-static-cache-v2';
-const dynamicPWACache = 'pwa-dynamic-cache-v1';
+const PWACache = "pwa-static-cache-v2";
+const dynamicPWACache = "pwa-dynamic-cache-v1";
 const assets = [
-  '/',
-  '/index.html',
-  '/js/app.js',
-  '/js/ui.js',
-  '/js/materialize.min.js',
-  '/css/styles.css',
-  '/css/materialize.min.css',
-  '/img/dish.png',
-  'https://fonts.googleapis.com/icon?family=Material+Icons',
-  '/pages/fallback.html'
+  "/",
+  "/index.html",
+  "/js/app.js",
+  "/js/ui.js",
+  "/js/materialize.min.js",
+  "/css/styles.css",
+  "/css/materialize.min.css",
+  "/img/dish.png",
+  "https://fonts.googleapis.com/icon?family=Material+Icons",
+  "/pages/fallback.html"
 ];
 
-self.addEventListener('install', (evt) => {
+self.addEventListener("install", (evt) => {
   evt.waitUntil(
     caches.open(PWACache).then(cache => {
       console.log("assets caching started...");
