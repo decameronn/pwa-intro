@@ -13,6 +13,17 @@ const assets = [
   "/pages/fallback.html"
 ];
 
+
+const limitCacheSize = (name, size) => {
+  caches.open(name).then(cache => {
+    cache.keys().then(keys => {
+      if (keys.length > size) {
+        cache.delete(keys[0]).then(limitCacheSize(name, size)); // call until the needed items in the cache remains
+      }
+    })
+  })
+};
+
 self.addEventListener("install", (evt) => {
   evt.waitUntil(
     caches.open(PWACache).then(cache => {
