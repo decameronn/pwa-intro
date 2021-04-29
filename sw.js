@@ -13,6 +13,7 @@ const assets = [
   "/pages/fallback.html"
 ];
 
+/* TODO (decameron): check again site audit */
 
 const limitCacheSize = (name, size) => {
   caches.open(name).then(cache => {
