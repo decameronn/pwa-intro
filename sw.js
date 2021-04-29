@@ -50,6 +50,7 @@ self.addEventListener("fetch", (evt) => {
       return cacheRes || fetch(evt.request).then(fetchRes => {
         return caches.open(dynamicPWACache).then(cache => {
           cache.put(evt.request.url, fetchRes.clone());
+          limitCacheSize(dynamicPWACache, 15);
           return fetchRes;
         })
       });
