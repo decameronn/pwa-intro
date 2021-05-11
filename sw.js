@@ -13,7 +13,7 @@ const assets = [
   "/pages/fallback.html"
 ];
 
-/* TODO (decameron): check again site audit */
+/* TODO (decameron): review firebase project */
 
 const limitCacheSize = (name, size) => {
   caches.open(name).then(cache => {
